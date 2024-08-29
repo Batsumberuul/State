@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 const messages = ["Learn react", "apply jobs", "Invest your new income"];
 
 export default function StepPage() {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(1);
   const [isHideSteps, setIsHideSteps] = useState(true);
   const incrementStep = () => {
     if (step < 3) {

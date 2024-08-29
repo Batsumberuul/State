@@ -1,26 +1,26 @@
-import {useState} from "react";
+import { useState } from "react";
 
 const players = [
   {
     id: 1,
     playerName: "John Cena",
-    playerScore: 10,
+    playerScore: 0,
   },
   {
     id: 2,
     playerName: "John John",
-    playerScore: 8,
+    playerScore: 0,
   },
   {
     id: 3,
     playerName: "John Kena",
-    playerScore: 5,
+    playerScore: 0,
   },
 ];
-console.log(players);
+let duplicate = JSON.parse(JSON.stringify(players));
 
 const ScorePage = () => {
-  const [score, setScore] = useState(players);
+  const [score, setScore] = useState(duplicate);
 
   const incrementScore = (index) => {
     const updatedScore = [...score];
@@ -31,6 +31,17 @@ const ScorePage = () => {
     const updatedScore = [...score];
     updatedScore[index].playerScore -= 1;
     setScore(updatedScore);
+  };
+
+  const resetScore = () => {
+    const resetScore = players.map((player) => {
+      return {
+        ...player,
+        playerScore: 0,
+      };
+    });
+
+    setScore(resetScore);
   };
 
   return (
@@ -45,12 +56,12 @@ const ScorePage = () => {
 
       {score.map((item, index) => {
         return (
-          <div className=" w-[466px] flex  py-4 border-b-2  justify-center items-center">
+          <div
+            key={index}
+            className=" w-[466px] flex  py-4 border-b-2  justify-center items-center"
+          >
             <div className="flex flex-1">
-              <p
-                className="font-medium text-base text-gray-900 flex items-center "
-                key={index}
-              >
+              <p className="font-medium text-base text-gray-900 flex items-center ">
                 {item.playerName}
               </p>
             </div>
@@ -59,10 +70,7 @@ const ScorePage = () => {
                 onClick={() => decrementScore(index)}
                 src="/iconbutton.png"
               />
-              <div
-                className="text-center font-medium text-base text-gray-900"
-                key={index}
-              >
+              <div className="text-center font-medium text-base text-gray-900">
                 {item.playerScore}
               </div>
 
@@ -76,7 +84,10 @@ const ScorePage = () => {
       })}
 
       <div className=" flex justify-end w-[466px]">
-        <button className=" bg-green-500 py-4 px-8 border-2 rounded-3xl text-gray-50 font-medium text-center  text-base">
+        <button
+          className=" bg-green-500 py-4 px-8 border-2 rounded-3xl text-gray-50 font-medium text-center  text-base"
+          onClick={resetScore}
+        >
           Reset
         </button>
       </div>
